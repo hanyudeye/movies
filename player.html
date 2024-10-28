@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频播放</title>
+    <style>
+        .player-container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .video-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+        }
+        .video-info {
+            margin-top: 20px;
+        }
+        .back-btn {
+            margin: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="location.href='index.html'">返回列表</button>
+    <div class="player-container">
+        <video class="video-player" controls>
+            <source src="sample.mp4" type="video/mp4">
+            您的浏览器不支持 HTML5 视频播放
+        </video>
+        <div class="video-info">
+            <h1 id="video-title">视频标题</h1>
+            <p id="video-desc">视频描述</p>
+        </div>
+    </div>
+
+    <script>
+        const movies = {
+            '1': {
+                title: '奥本海默 Oppenheimer (2023)',
+                desc: '克里斯托弗·诺兰执导的传记片，由基里安·墨菲主演。影片讲述了"原子弹之父"罗伯特·奥本海默领导曼哈顿计划、研制原子弹的故事。影片探讨了科学、道德与战争的复杂关系。',
+                video: 'https://example.com/oppenheimer.mp4'
+            },
+            '2': {
+                title: '坚如磐石 (2023)',
+                desc: '张艺谋导演的犯罪悬疑电影，由雷佳音、张国立、于和伟等主演。故事讲述了一起看似简单的案件背后隐藏的惊天阴谋，以及主人公在追查真相过程中面临的重重考验。',
+                video: 'https://example.com/ripple.mp4'
+            },
+            '3': {
+                title: '河边的错误 (2023)',
+                desc: '王超导演的悬疑犯罪片，由朱一龙、万茜主演。影片改编自余华同名小说，讲述了一起发生在上世纪90年代的南方小城的命案，以及由此引发的一系列故事。',
+                video: 'https://example.com/only_the_river_flows.mp4'
+            }
+        };
+
+        // 获取URL参数中的视频ID
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoId = urlParams.get('id');
+
+        // 根据ID更新视频信息
+        if (movies[videoId]) {
+            document.getElementById('video-title').textContent = movies[videoId].title;
+            document.getElementById('video-desc').textContent = movies[videoId].desc;
+            document.querySelector('.video-player source').src = movies[videoId].video;
+            document.querySelector('.video-player').load(); // 重新加载视频
+        }
+    </script>
+</body>
+</html>
